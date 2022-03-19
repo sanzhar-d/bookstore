@@ -8,7 +8,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class DbConnector {
+public class DbConnector implements DbConnectorInterface {
 
     public DbConnector() {
     }
@@ -32,10 +32,6 @@ public class DbConnector {
         return conn;
     }
 
-    public Book saveBook(Book book){
-         return null;
-    }
-
     public int saveGenre(Genre genre){
         Connection conn = getConnection();
 
@@ -57,7 +53,7 @@ public class DbConnector {
 
         try {
             Statement statement = conn.createStatement();
-            ResultSet resultSet = statement.executeQuery("select * from \"Genre\" where id  = ");
+            ResultSet resultSet = statement.executeQuery("select * from \"Genre\"");
 
             List<Genre> genres = new ArrayList<>();
             while (resultSet.next()){
@@ -84,14 +80,53 @@ public class DbConnector {
         return null;
     }
 
-    public Genre getById(int id){
+    public Genre getGenreById(int id){
+        Connection conn = getConnection();
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet resultSet = statement.executeQuery("select * from \"Genre\" where id  = " + id);
+
+            List<Genre> genres = new ArrayList<>();
+            while (resultSet.next()){
+                int idFromBase = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+
+                Genre genre = new Genre();
+                genre.setId(idFromBase);
+                genre.setName(name);
+
+                genres.add(genre);
+            }
+
+            conn.close();
+
+            Genre genre = genres.get(0);
+
+            return genre;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
+    }
+
+    @Override
+    public void deleteGenreById(int id) {
+        Connection conn = getConnection();
+
+        try {
+            Statement statement = conn.createStatement();
+            statement.executeUpdate("delete from \"Genre\" where id = " + id);
+
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 
     public int saveDiscount(Discount discount){
         Connection conn = getConnection();
-
 
         String pattern = "yyyy-MM-dd";
 
@@ -125,7 +160,45 @@ public class DbConnector {
         return 0;
     }
 
+    @Override
+    public List<Discount> getAllDiscounts() {
+        return null;
+    }
 
+    @Override
+    public Discount getDiscountById(int id) {
+        return null;
+    }
+
+    @Override
+    public void deleteDiscountById(int id) {
+
+    }
+
+    @Override
+    public int savePosition(Position position) {
+        return 0;
+    }
+
+    @Override
+    public List<Position> getAllPositions() {
+        return null;
+    }
+
+    @Override
+    public Position getPositionById(int id) {
+        return null;
+    }
+
+    @Override
+    public void deletePositionById(int id) {
+
+    }
+
+    @Override
+    public Book saveBook(Book book) {
+        return null;
+    }
 
 
 }

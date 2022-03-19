@@ -9,7 +9,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        DbConnector dbConnector = new DbConnector();
+        DbConnectorInterface dbConnector = new DbConnector();
 
 //        Genre genre = new Genre();
 //        genre.setName("adventures");
@@ -18,11 +18,18 @@ public class Main {
 //        List<Genre> genreList = dbConnector.getAllGenres();
 //        System.out.println(genreList.size());
 
-        Discount discount = new Discount();
-        discount.setPercent(15);
-        discount.setStart_date(new Date());
-        discount.setEnd_date(new Date());
-        dbConnector.saveDiscount(discount);
+//        Discount discount = new Discount();
+//        discount.setPercent(15);
+//        discount.setStart_date(new Date());
+//        discount.setEnd_date(new Date());
+//        dbConnector.saveDiscount(discount);
+
+        //вызов метода по получению жанра по id
+        Genre genre = dbConnector.getGenreById(7);
+        System.out.println(genre.getName());
+
+        //вызов метода по удалению жанра по id
+        dbConnector.deleteGenreById(6);
 
         
 
