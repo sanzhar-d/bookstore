@@ -28,8 +28,14 @@ public class Main {
         Genre genre = dbConnector.getGenreById(7);
         System.out.println(genre.getName());
 
+        //вызов метода по редактированию объекта Genre
+        genre.setName("poem");
+        dbConnector.updateGenre(genre);
+
         //вызов метода по удалению жанра по id
         dbConnector.deleteGenreById(6);
+
+
 
         
 

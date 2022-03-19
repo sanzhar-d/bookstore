@@ -9,6 +9,8 @@ public interface DbConnectorInterface {
 
     int saveGenre(Genre genre);
 
+    int updateGenre(Genre genre);
+
     List<Genre> getAllGenres();
 
     Genre getGenreById(int id);

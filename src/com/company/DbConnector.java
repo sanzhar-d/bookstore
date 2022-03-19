@@ -48,6 +48,26 @@ public class DbConnector implements DbConnectorInterface {
         return 0;
     }
 
+    @Override
+    public int updateGenre(Genre genre) {
+        Connection conn = getConnection();
+
+        try {
+            Statement statement = conn.createStatement();
+            int result = statement.executeUpdate("update \"Genre\" set id = " +
+                    genre.getId() + ", name = '" + genre.getName() +
+                    "' where id = " + genre.getId());
+
+            conn.close();
+            return result;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        return 0;
+    }
+
     public List<Genre> getAllGenres(){
         Connection conn = getConnection();
 
